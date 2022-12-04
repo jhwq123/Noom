@@ -125,7 +125,7 @@ welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("chat");
-  myDataChannel.addEventListener("message", (event) => console.log(event.data));
+  myDataChannel.addEventListener("message", addMessage);
   console.log("made data channel");
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
@@ -136,9 +136,7 @@ socket.on("welcome", async () => {
 socket.on("offer", async (offer) => {
   myPeerConnection.addEventListener("datachannel", (event) => {
     myDataChannel = event.channel;
-    myDataChannel.addEventListener("message", (event) =>
-      console.log(event.data)
-    );
+    myDataChannel.addEventListener("message", addMessage);
   });
   console.log("recieved the offer");
   myPeerConnection.setRemoteDescription(offer);
@@ -157,6 +155,24 @@ socket.on("ice", (ice) => {
   console.log("recieved candidate");
   myPeerConnection.addIceCandidate(ice);
 });
+
+// Send Message
+
+const messageForm = call.querySelector("form");
+
+function handleMessageSubmit(event) {
+  event.preventDefault();
+  const input = call.querySelector("#msg input");
+  const value = input.value;
+  myDataChannel.send(value);
+  const ul = call.querySelector("ul");
+  const li = document.createElement("li");
+  li.innerText = `[You]: ${value}`;
+  ul.appendChild(li);
+  input.value = "";
+}
+
+messageForm.addEventListener("submit", handleMessageSubmit);
 
 // RTC Code
 
@@ -189,4 +205,21 @@ function handleIce(data) {
 function handleAddStream(data) {
   const peerFace = document.getElementById("peerFace");
   peerFace.srcObject = data.stream;
+}
+
+function addMessage(event) {
+  const ul = call.querySelector("ul");
+  const li = document.createElement("li");
+  li.innerText = `[Opp]: ${event.data}`;
+  ul.appendChild(li);
+}
+
+function oddMessage(event) {
+  const ul = call.querySelector("ul");
+  const li = document.createElement("li");
+  li.innerText = `You : ${event.data}`;
+  ul.appendChild(li);
+
+  const input = call.querySelector("#msg input");
+  myDataChannel.send(input.value);
 }

@@ -1,3 +1,170 @@
+style.
+    body {
+        background-color: #576574;
+        width: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        color: white;
+        font-size: 100px;
+        margin-bottom: -10px;
+    }
+
+    #welcome {
+        width: 700px;
+        height: 200px;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #enterInput {
+        position: relative;
+        width: 600px;
+        height: 50px;
+        border-radius: 15px;
+        border: unset;
+        padding-left: 30px;
+    }
+
+    #enterButton {
+        background-color: #f1c40f;
+        color: #222f3e;
+        position: absolute;
+        width: 65px;
+        height: 45px;
+        right: 50px;
+        margin: 2px;
+        border-radius: 0px 15px 15px 0px;
+        border: unset;
+        cursor: pointer;
+    }
+
+    #title {
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 20px;
+        padding: 0px 170px;
+    }
+
+    #call {
+        background-color: #222f3e;
+        width: 840px;
+        height: 1000px;
+        padding: 20px;
+    }
+
+    #videoBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 780px;
+        height: 350px;
+        padding: 0px 25px;
+        margin: 10px;
+    }
+
+    #buttonBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 800px;
+        height: 50px;
+        margin: 20px;
+    }
+
+    #mute {
+        background-color: #f1c40f;
+        color: #222f3e;
+        font-size: 15px;
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+        border: unset;
+        margin: 0px 10px;
+    }
+
+    #camera {
+        background-color: #f1c40f;
+        color: #222f3e;
+        font-size: 15px;
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+        border: unset;
+        margin: 0px 10px;
+    }
+
+    #cameras {
+        background-color: #f1c40f;
+        color: #222f3e;
+        font-size: 15px;
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+        border: unset;
+        margin: 0px 10px;
+    }
+
+    #chatBox {
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+        height: 250px;
+        margin: 20px;
+    }
+
+    #chat {
+        background-color: white;
+        width: 790px;
+        height: 100%;
+        overflow: auto;
+        margin: 5px;
+    }
+
+    #msg {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 790px;
+        height: 50px;
+        margin: 5px;
+    }
+
+    #msgInput {
+        position: relative;
+        width: 790px;
+        height: 50px;
+        border-radius: 15px;
+        border: unset;
+        padding-left: 30px;
+    }
+
+    #msgButton {
+        background-color: #f1c40f;
+        color: #222f3e;
+        position: absolute;
+        right: 2px;
+        width: 50px;
+        height: 46px;
+        border-radius: 0px 15px 15px 0px;
+        border: unset;
+    }
+
 doctype html
 html(lang="en")
     head
@@ -5,20 +172,32 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Noom
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
     body 
         header
             h1 Noom
         main
             div#welcome
                 form
-                    input(placeholder="room name", required, type="text")
-                    button Enter Room
+                    input#enterInput(placeholder="Enter room name", required, type="text")
+                    button#enterButton Enter Room
             div#call
-                video#myFace(autoplay, playsinline, width="400", height="400")
-                button#mute Mute
-                button#camera Turn Camera Off
-                select#cameras
-                video#peerFace(autoplay, playsinline, width="400", height="400")
+                div#title
+                    h3 Man A
+                    h3 Man B
+                div#videoBox
+                    video#myFace(autoplay, playsinline, width="350", height="350")
+                    video#peerFace(autoplay, playsinline, width="350", height="350")
+                div#buttonBox
+                    button#mute Mute
+                    button#camera Turn Camera Off
+                    select#cameras
+                div#chatBox
+                    div#chat
+                        ul
+                    form#msg
+                        input#msgInput(placeholder="massage", required, type="text")
+                        button#msgButton Send 
+                    
+                
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")
